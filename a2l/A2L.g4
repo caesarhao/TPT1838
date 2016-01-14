@@ -1,4 +1,5 @@
 grammar A2L;
+
 @members {
     public static void main(String[] args) throws Exception {
         A2LLexer lex = new A2LLexer(new ANTLRFileStream(args[0]));
@@ -17,21 +18,34 @@ grammar A2L;
  * PARSER RULES
  *------------------------------------------------------------------*/
 a2l
-	:	version project
+	:	version
+		project
 	;
 version
-	:	'ASAP2_VERION' INT INT
+	:	'ASAP2_VERSION' INT INT
 	;
 project
-	:	'/begin PROJECT' ID STRING header module+ '/end PROJECT'
+	:	'/begin PROJECT' ID STRING
+		header 
+		module+
+		'/end PROJECT'
 	;
 header
-	:	'/begin HEADER' ID? STRING 'PROJECT_NO' ID '/end HEADER'
+	:	'/begin HEADER' ID? STRING
+	 	'VERSION' STRING 
+	 	'PROJECT_NO' ID 
+	 	'/end HEADER'
 	;
 module
-	: 	'/begin MODULE' ID? STRING CHAR* '/end MODULE'
+	: 	'/begin MODULE' ID? STRING
+		(a2ml)*
+		'/end MODULE'
 	;
-
+a2ml
+	:	'/begin A2ML'
+		CHAR*
+		'/end A2ML'
+	;
 /*------------------------------------------------------------------
  * LEXER RULES
  *------------------------------------------------------------------*/
@@ -48,15 +62,15 @@ FLOAT
     ;
 
 COMMENT
-    :   '//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;}
-    |   '/*' ( options {greedy=false;} : . )* '*/' {$channel=HIDDEN;}
+    :   ('//' ~('\n'|'\r')* '\r'? '\n'
+    |   '/*' ( . )*? '*/') -> skip
     ;
 
 WS  :   ( ' '
         | '\t'
         | '\r'
         | '\n'
-        ) {$channel=HIDDEN;}
+        ) -> skip
     ;
 
 STRING
@@ -90,4 +104,5 @@ fragment
 UNICODE_ESC
     :   '\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
     ;
+
 

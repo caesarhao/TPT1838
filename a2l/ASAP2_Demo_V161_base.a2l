@@ -1,0 +1,16 @@
+ASAP2_VERSION 1 61
+/begin PROJECT ASAP2_Example ""
+
+  /begin HEADER "ASAP2 Example File"
+    VERSION "V1.61"
+    PROJECT_NO MCD_P12_08
+  /end HEADER
+
+  /begin MODULE Example ""
+
+    /begin A2ML
+
+	/end A2ML
+ /end MODULE
+/end PROJECT
+

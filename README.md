@@ -16,6 +16,8 @@ TPT183825C
 
 [L4T R16](https://developer.nvidia.com/linux-tegra-rel-16)
 
+[Generic SBK Dumper](https://forum.xda-developers.com/showthread.php?t=2071626)
+
 # Android Recovery mode
 ## How to enter Recovery mode?
 1. Turn off the tablet and disconnect it from PC
@@ -43,13 +45,42 @@ Press and hold the power button for about six seconds. The device should immedia
 * NVIDIA's **nvflash** program can be used for controlling/manipulating a device in APX mode.
 * NVIDIA's **tegrarcm** program can be used to send code to Tegra devices.
 
-# nvflash
+# nvflash, first try, failed caused by SBK
 [nvflash download](http://developer.download.nvidia.com/mobile/tegra/l4t/r16.5.0/ventana_release_armhf/Tegra20_Linux_R16.5_armhf.tbz2)
 
 [nvflash on XDA](https://forum.xda-developers.com/showthread.php?t=1745450)
 
 APX mode is recognized in Linux:
 `Bus 003 Device 004: ID 0955:7820 NVIDIA Corp. T20 [Tegra 2] recovery mode`
+
+**nvflash** file is renamed as **nvflash_t20** and moved into */usr/bin/*.
+A file **52-nvflash.rules** has been created in */etc/udev/rules.d/* with the following content:
+
+`# APX mode of NVIDIA Tegra 2
+SUBSYSTEM=="usb", ATTR{idVendor}=="0955", ATTR{idProduct}=="7820", MODE="0660"`
+
+The purpose is to use nvflash without in **root** mode.
+
+After the connection of the tablet in APX mode, try to call nvflash command.
+My God, **nvflash** doesn't work, the tablet gets disconnected quickly, because **Secure Boot Key (SBK)** has been enabled on the device.
+
+`NVIDIA Tegra 2 systems have an optional signing process using a Secure Boot Key (SBK). A SBK is a shared-secret AES128 encryption key. The SBK is permanently burned into ROM within the device, and is readable only by a hardware AES engine.
+
+Devices employing the SBK mechanism require nvflash commands to be encrypted with the SBK; nvflash performs the encryption, given the SBK value. If this is not done, or the given SBK is incorrect, nvflash will exit with status 0x4. `
+
+Next step, try to get the SBK in the tablet.
+
+# Find out SBK
+Some useful information from the following link:
+[SBK Dumper](https://forum.xda-developers.com/showthread.php?t=2071626)
+
+In the linux kernel, there is some protection that block the user try to read out SBK when the device in **odm_production** status.
+/sys/firmware/fuse/secure_boot_key
+
+## Fuse and 
+SBK : 128 bits
+Device Key (DK): 32 bits
+Unique ID (UID): 64 bits
 
 
 # tegrarcm

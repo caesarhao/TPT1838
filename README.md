@@ -64,9 +64,10 @@ The purpose is to use nvflash without in **root** mode.
 After the connection of the tablet in APX mode, try to call nvflash command.
 My God, **nvflash** doesn't work, the tablet gets disconnected quickly, because **Secure Boot Key (SBK)** has been enabled on the device.
 
-`NVIDIA Tegra 2 systems have an optional signing process using a Secure Boot Key (SBK). A SBK is a shared-secret AES128 encryption key. The SBK is permanently burned into ROM within the device, and is readable only by a hardware AES engine.
+```NVIDIA Tegra 2 systems have an optional signing process using a Secure Boot Key (SBK). A SBK is a shared-secret AES128 encryption key. The SBK is permanently burned into ROM within the device, and is readable only by a hardware AES engine.
 
-Devices employing the SBK mechanism require nvflash commands to be encrypted with the SBK; nvflash performs the encryption, given the SBK value. If this is not done, or the given SBK is incorrect, nvflash will exit with status 0x4. `
+Devices employing the SBK mechanism require nvflash commands to be encrypted with the SBK; nvflash performs the encryption, given the SBK value. If this is not done, or the given SBK is incorrect, nvflash will exit with status 0x4. 
+```
 
 Next step, try to get the SBK in the tablet.
 
@@ -76,6 +77,66 @@ Some useful information from the following link:
 
 In the linux kernel, there is some protection that block the user try to read out SBK when the device in **odm_production** status.
 /sys/firmware/fuse/secure_boot_key
+
+Start the tablet and enable the Debug mode
+Confirmation in shell:
+
+`Bus 003 Device 004: ID 17ef:741c Lenovo ThinkPadTablet`
+List of devices with **adb**:
+
+```adb devices
+List of devices attached
+* daemon not running; starting now at tcp:5037
+* daemon started successfully
+MP0A99W	device
+```
+
+```shell@android:/storage/sdcard1 # uname -a
+Linux localhost 2.6.39.4-g40c7636-dirty #1 SMP PREEMPT Thu Feb 7 20:07:37 CET 2013 armv7l GNU/Linux
+shell@android:/storage/sdcard1 # cat /proc/version
+Linux version 2.6.39.4-g40c7636-dirty (koshu@koshu-desktop) (gcc version 4.4.3 (GCC) ) #1 SMP PREEMPT Thu Feb 7 20:07:37 CET 2013
+shell@android:/storage/sdcard1 # cat /proc/cpuinfo
+Processor		: ARMv7 Processor rev 0 (v71)
+processor		: 0
+BogoMIPS		: 996.14
+
+processor		: 1
+BogoMIPS		: 996.14
+
+Features		: swp half thumb fastmult vfp edsp vfpv3 vfpv3d16
+CPU implementer	: 0x41
+CPU architecture : 7
+CPU variant		: 0x1
+CPU part		: Oxc09
+CPU revision	: 0
+
+Hardware		: ventana
+Revision		: 0000
+Serial			: 0000000000000000
+```
+```adb shell
+shell@android:/ $ df
+Filesystem             Size   Used   Free   Blksize
+/dev                   357M    32K   357M   4096
+/mnt/asec              357M     0K   357M   4096
+/mnt/obb               357M     0K   357M   4096
+/sqlite_stmt_journals     4M     0K     4M   4096
+/system                755M   310M   445M   4096
+/data                   27G     6G    20G   4096
+/cache                 885M    81M   804M   4096
+/mnt/pia               503M   329M   174M   4096
+/mnt/persdata           19M     8M    10M   4096
+/storage/sdcard0        27G     6G    20G   4096
+/storage/sdcard1         1G     1G   727M   4096
+```
+
+Enable support of **su** for adb:
+
+Go to **Settings** -> **Developer options** -> **Root access**, and change option to **"Apps and ADB"**.
+
+Cannot insmod **ss.ko** now, error as
+
+`insmod: init_module 'ss.ko' failed (Exec format error)`
 
 ## Fuse and 
 SBK : 128 bits

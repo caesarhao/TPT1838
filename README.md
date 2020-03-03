@@ -138,6 +138,14 @@ Cannot insmod **ss.ko** now, error as
 
 `insmod: init_module 'ss.ko' failed (Exec format error)`
 
+## Recompile **testk.ko** for kernel in the tablet
+The **vermagic** of the kernel in the tablet is **2.6.39.4-g40c7636-dirty #1 SMP PREEMPT**.
+
+[Kernel local version](https://nanxiao.me/en/how-to-modify-the-local-version-of-linux-kernel/)
+
+[Build module for precompiled kernel](https://linux.die.net/lkmpg/x380.html)
+
+
 ## Fuse and 
 SBK : 128 bits
 Device Key (DK): 32 bits

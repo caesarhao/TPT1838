@@ -141,6 +141,8 @@ Cannot insmod **ss.ko** now, error as
 ## Recompile **testk.ko** for kernel in the tablet
 The **vermagic** of the kernel in the tablet is **2.6.39.4-g40c7636-dirty #1 SMP PREEMPT**.
 
+[Cross compile kernel module](https://blukat29.github.io/2017/12/cross-compile-arm-kernel-module/)
+
 [Kernel local version](https://nanxiao.me/en/how-to-modify-the-local-version-of-linux-kernel/)
 
 [Build module for precompiled kernel](https://linux.die.net/lkmpg/x380.html)

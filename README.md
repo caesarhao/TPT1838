@@ -18,6 +18,8 @@ TPT183825C
 
 [Generic SBK Dumper](https://forum.xda-developers.com/showthread.php?t=2071626)
 
+[jevinskie/fusee-launcher](https://github.com/jevinskie/fusee-launcher)
+
 # Android Recovery mode
 ## How to enter Recovery mode?
 1. Turn off the tablet and disconnect it from PC
@@ -71,7 +73,7 @@ Devices employing the SBK mechanism require nvflash commands to be encrypted wit
 
 Next step, try to get the SBK in the tablet.
 
-# Find out SBK
+# Try to find out SBK with SBK Dumper
 Some useful information from the following link:
 [SBK Dumper](https://forum.xda-developers.com/showthread.php?t=2071626)
 
@@ -679,6 +681,22 @@ shell@android:/storage/sdcard1 # insmod testk.ko
 ```
 
 Merde, the tablet restarted after the insmod command.
+
+# Try to find SBK with *jevinskie/fusee-launcher*
+Download **fusee-launcher** from https://github.com/jevinskie/fusee-launcher
+
+Compile it with **make** command in Linux
+
+Package **python3-pyusb** is necessary
+
+Let tablet enter **APX** mode, confirm it with command **lsusb**
+It should be recognized as:
+
+`Bus 003 Device 004: ID 0955:7820 NVIDIA Corp. T20 [Tegra 2] recovery mode`
+
+As there is no USB3 on my laptop, it doesn't work.
+
+I'll try again with another laptop.
 
 ## Fuse and 
 SBK : 128 bits

@@ -1,12 +1,19 @@
 # TPT1838
 TPT183825C
 
+# Good workers on Github
+Koshu
+
+jbaiter
+
 # Useful links
 [DPavlin's work](https://saturn.ffzg.hr/rot13/index.cgi?lenovo_thinkpad_tablet)
 
 [A500 Info](http://projects.pappkartong.se/a500/)
 
 [XDA](https://forum.xda-developers.com/wiki/Lenovo_ThinkPad_Tablet)
+
+[How to build CM9 for Thinkpad Tablet](https://github.com/jbaiter/thinkpad_tablet_device_tree)
 
 [GSMARENA](https://www.gsmarena.com/lenovo_thinkpad-4444.php)
 

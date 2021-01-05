@@ -80,6 +80,14 @@ Devices employing the SBK mechanism require nvflash commands to be encrypted wit
 
 Next step, try to get the SBK in the tablet.
 
+**Object**:
+
+| Type	    |      Value 	    |  Reliability		  |
+|-----------|:-----------------:|--------------------:|
+| Device ID |  d7309f434630840a | From fusee-launcher |
+| Chip UID  | ??    			|  ?? 				  |
+| SBK		| ??				|  ??				  |
+
 # Try to find out SBK with SBK Dumper
 Some useful information from the following link:
 [SBK Dumper](https://forum.xda-developers.com/showthread.php?t=2071626)
@@ -100,10 +108,15 @@ List of devices attached
 MP0A99W	device
 ```
 
-```shell@android:/storage/sdcard1 # uname -a
+```
+shell@android:/storage/sdcard1 # uname -a
 Linux localhost 2.6.39.4-g40c7636-dirty #1 SMP PREEMPT Thu Feb 7 20:07:37 CET 2013 armv7l GNU/Linux
+```
+```
 shell@android:/storage/sdcard1 # cat /proc/version
 Linux version 2.6.39.4-g40c7636-dirty (koshu@koshu-desktop) (gcc version 4.4.3 (GCC) ) #1 SMP PREEMPT Thu Feb 7 20:07:37 CET 2013
+```
+```
 shell@android:/storage/sdcard1 # cat /proc/cpuinfo
 Processor		: ARMv7 Processor rev 0 (v71)
 processor		: 0
@@ -123,7 +136,7 @@ Hardware		: ventana
 Revision		: 0000
 Serial			: 0000000000000000
 ```
-```adb shell
+```
 shell@android:/ $ df
 Filesystem             Size   Used   Free   Blksize
 /dev                   357M    32K   357M   4096
@@ -138,6 +151,80 @@ Filesystem             Size   Used   Free   Blksize
 /storage/sdcard0        27G     6G    20G   4096
 /storage/sdcard1         1G     1G   727M   4096
 ```
+
+```
+shell@android:/ # cat /proc/cmdline                                            
+tegraid=20.1.4.0.0 mem=1022M@0M android.commchip=2685344 vmalloc=256M androidboot.serialno=0a843046439f30d7 video=tegrafb no_console_suspend=1 console=none debug_uartport=lsport,-3 usbcore.old_scheme_first=1 lp0_vec=8192@0x1d826000 tegra_fbmem=8197120@0x1d82a000 tegraboot=sdmmc charging=0 isBatteryFail=0 gpt gpt_sector=62519295 
+```
+
+```
+shell@android:/ # cat /proc/meminfo                                          
+MemTotal:         731896 kB
+MemFree:           14700 kB
+Buffers:           35832 kB
+Cached:           312088 kB
+SwapCached:            0 kB
+Active:           406004 kB
+Inactive:         251760 kB
+Active(anon):     310108 kB
+Inactive(anon):      120 kB
+Active(file):      95896 kB
+Inactive(file):   251640 kB
+Unevictable:         188 kB
+Mlocked:               0 kB
+HighTotal:        102400 kB
+HighFree:            260 kB
+LowTotal:         629496 kB
+LowFree:           14440 kB
+SwapTotal:             0 kB
+SwapFree:              0 kB
+Dirty:                 0 kB
+Writeback:             0 kB
+AnonPages:        310040 kB
+Mapped:           143072 kB
+Shmem:               196 kB
+Slab:              17660 kB
+SReclaimable:       7384 kB
+SUnreclaim:        10276 kB
+KernelStack:        6560 kB
+PageTables:         9780 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:      365948 kB
+Committed_AS:    6184852 kB
+VmallocTotal:     253952 kB
+VmallocUsed:       61972 kB
+VmallocChunk:     170948 kB
+DirectMap4k:      110596 kB
+DirectMap2M:      544768 kB
+```
+```
+shell@android:/ # cat /proc/partitions                                         
+major minor  #blocks  name
+
+ 179        0   31259648 mmcblk0
+ 179        1       6144 mmcblk0p1
+ 179        2       8192 mmcblk0p2
+ 179        3     786432 mmcblk0p3
+ 179        4     921600 mmcblk0p4
+ 179        5       2048 mmcblk0p5
+ 179        6     524288 mmcblk0p6
+ 179        7      20480 mmcblk0p7
+ 259        0     143360 mmcblk0p8
+ 259        1      20480 mmcblk0p9
+ 259        2   28811264 mmcblk0p10
+ 179        8    1931264 mmcblk1
+ 179        9    1931196 mmcblk1p1
+
+```
+```
+
+```
+
+```
+```
+
 
 Enable support of **su** for adb:
 
@@ -704,6 +791,46 @@ It should be recognized as:
 As there is no USB3 on my laptop, it doesn't work.
 
 I'll try again with another laptop.
+
+Try again with Raspberry Pi 4, with USB3.
+command:
+
+`sudo ./fusee-launcher.py -V 0955 -P 7820 --tty dump-sbk-via-usb.bin`
+
+Output : 
+
+```
+2021-01-05 22:07:40,426 INFO:usb.core:find(): using backend "usb.backend.libusb1"
+
+Important note: on desktop Linux systems, we currently require an XHCI host controller.
+A good way to ensure you're likely using an XHCI backend is to plug your
+device into a blue 'USB 3' port.
+
+Identified a Linux system; setting up the appropriate backend.
+intermezzo_size: 0x00000078
+target_payload_size: 0x00011590
+Found a Tegra with Device ID: b'd7309f434630840a'
+Traceback (most recent call last):
+  File "./fusee-launcher.py", line 720, in <module>
+    patched_intermezzo = switch.get_patched_intermezzo(intermezzo, target_payload_size)
+  File "./fusee-launcher.py", line 639, in get_patched_intermezzo
+    overwrite_len = self.get_overwrite_length()
+  File "./fusee-launcher.py", line 593, in get_overwrite_length
+    stack_snapshot = self.read_stack()
+  File "./fusee-launcher.py", line 588, in read_stack
+    return self.backend.read_ep0(0x10)
+  File "./fusee-launcher.py", line 140, in read_ep0
+    return bytes(self.dev.ctrl_transfer(self.STANDARD_REQUEST_DEVICE_TO_HOST_TO_ENDPOINT, self.GET_STATUS, 0, 0, length))
+  File "/usr/local/lib/python3.7/dist-packages/usb/core.py", line 1077, in ctrl_transfer
+    self.__get_timeout(timeout))
+  File "/usr/local/lib/python3.7/dist-packages/usb/_debug.py", line 62, in do_trace
+    return f(*args, **named_args)
+  File "/usr/local/lib/python3.7/dist-packages/usb/backend/libusb1.py", line 901, in ctrl_transfer
+    timeout))
+  File "/usr/local/lib/python3.7/dist-packages/usb/backend/libusb1.py", line 602, in _check
+    raise USBTimeoutError(_strerror(ret), ret, _libusb_errno[ret])
+usb.core.USBTimeoutError: [Errno 110] Operation timed out
+```
 
 ## Fuse and 
 SBK : 128 bits

@@ -80,13 +80,6 @@ Devices employing the SBK mechanism require nvflash commands to be encrypted wit
 
 Next step, try to get the SBK in the tablet.
 
-**Object**:
-
-| Type	    |      Value 	    |  Reliability		  |
-|-----------|:-----------------:|--------------------:|
-| Device ID |  d7309f434630840a | From fusee-launcher |
-| Chip UID  | ??    			|  ?? 				  |
-| SBK		| ??				|  ??				  |
 
 # Try to find out SBK with SBK Dumper
 Some useful information from the following link:
@@ -832,11 +825,39 @@ Traceback (most recent call last):
 usb.core.USBTimeoutError: [Errno 110] Operation timed out
 ```
 
-## Fuse and 
-SBK : 128 bits
-Device Key (DK): 32 bits
-Unique ID (UID): 64 bits
+## Fuse info **SSK**
 
+Unique, per-chip Secure Storage Key used to protect customer-defined data.
+Typically a 128-bit key computed from the following fuse settings:
+
+- 128-bit customer-programmed SBK : not burned
+- 32-bit customer-programmed Device Key (DK) : not burned
+- 64-bit NVIDIA-programmed Unique ID(UID): 0x0a843046439f30d7
+
+# Finally, I find the SBK isn't activated!!!
+new result from nvflash
+
+```
+Nvflash v1.13.87205 started
+chip uid from BR is: 0x00000000000000000a843046439f30d7
+rcm version 0X20001
+System Information:
+   chip name: t20
+   chip id: 0x20 major: 1 minor: 4
+   chip sku: 0x8
+   chip uid: 0x00000000000000000a843046439f30d7
+   macrovision: disabled
+   hdcp: enabled
+   jtag: enabled
+   sbk burned: false
+   dk burned: false
+   boot device: emmc
+   operating mode: 3
+   device config strap: 0
+   device config fuse: 0
+   sdram config strap: 1
+
+```
 
 # tegrarcm
 [tegrarcm on Github](https://github.com/NVIDIA/tegrarcm)

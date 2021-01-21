@@ -835,6 +835,8 @@ Typically a 128-bit key computed from the following fuse settings:
 - 64-bit NVIDIA-programmed Unique ID(UID): 0x0a843046439f30d7
 
 # Finally, I find the SBK isn't activated!!!
+The tablet must be turned off correctly before entering APX mode.
+
 new result from nvflash
 
 ```
@@ -862,6 +864,89 @@ System Information:
 # tegrarcm
 [tegrarcm on Github](https://github.com/NVIDIA/tegrarcm)
 
+# U-Boot runs
+
+```
+Tegra20 (Phj00) # coninfo                                                       
+List of available devices:                                                      
+serial@70006300 00000007 IO                                                     
+serial   00000003 IO stdin                                                      
+nulldev  00000003 IO                                                            
+vidconsole 00000002 .O stdout stderr                                                                                                          
+Tegra20 (Phj00) # mmcinfo                                                       
+Device: sdhci@c8000600                                                          
+Manufacturer ID: 15                                                             
+OEM: 100                                                                        
+Name: MBG8F                                                                     
+Bus Speed: 48000000                                                             
+Mode: MMC High Speed (52MHz)                                                    
+Rd Block Len: 512                                                               
+MMC version 4.4.1                                                               
+High Capacity: Yes                                                              
+Capacity: 29.8 GiB                                                              
+Bus Width: 8-bit                                                                
+Erase Group Size: 512 KiB                                                       
+HC WP Group Size: 8 MiB                                                         
+User Capacity: 29.8 GiB WRREL                                                   
+Boot Capacity: 512 KiB ENH                                                      
+RPMB Capacity: 128 KiB ENH                                                      
+Boot area 0 is not write protected                                              
+Boot area 1 is not write protected                                              
+Tegra20 (Phj00) # printenv                                                      
+arch=arm                                                                        
+baudrate=115200                                                                 
+board=ventana                                                                   
+board_name=ventana                                                              
+boot_a_script=load ${devtype} ${devnum}:${distro_bootpart} ${scriptaddr} ${pref}
+boot_efi_binary=load ${devtype} ${devnum}:${distro_bootpart} ${kernel_addr_r} ei
+boot_efi_bootmgr=if fdt addr ${fdt_addr_r}; then bootefi bootmgr ${fdt_addr_r};i
+boot_extlinux=sysboot ${devtype} ${devnum}:${distro_bootpart} any ${scriptaddr}}
+boot_net_usb_start=usb start                                                    
+boot_prefixes=/ /boot/                                                          
+boot_script_dhcp=boot.scr.uimg                                                  
+boot_scripts=boot.scr.uimg boot.scr                                             
+boot_syslinux_conf=extlinux/extlinux.conf                                       
+boot_targets=mmc1 mmc0 usb0 pxe dhcp                                            
+bootcmd=run distro_bootcmd                                                      
+bootcmd_dhcp=setenv devtype dhcp; run boot_net_usb_start; if dhcp ${scriptaddr};
+bootcmd_mmc0=devnum=0; run mmc_boot                                             
+bootcmd_mmc1=devnum=1; run mmc_boot                                             
+bootcmd_pxe=run boot_net_usb_start; dhcp; if pxe get; then pxe boot; fi         
+bootcmd_usb0=devnum=0; run usb_boot                                             
+bootdelay=2                                                                     
+bootfstype=fat                                                                  
+cpu=armv7                                                                       
+devtype=dhcp                                                                    
+distro_bootcmd=for target in ${boot_targets}; do run bootcmd_${target}; done    
+efi_dtb_prefixes=/ /dtb/ /dtb/current/                                          
+fdt_addr_r=0x03000000                                                           
+fdt_high=ffffffff                                                               
+fdtcontroladdr=3f6f9950                                                         
+fdtfile=tegra20-ventana.dtb                                                     
+initrd_high=ffffffff                                                            
+kernel_addr_r=0x01000000                                                        
+load_efi_dtb=load ${devtype} ${devnum}:${distro_bootpart} ${fdt_addr_r} ${prefi}
+loadaddr=0x01000000                                                             
+mmc_boot=if mmc dev ${devnum}; then devtype=mmc; run scan_dev_for_boot_part; fi 
+preboot=usb start                                                               
+pxefile_addr_r=0x10100000                                                       
+ramdisk_addr_r=0x03100000                                                       
+scan_dev_for_boot=echo Scanning ${devtype} ${devnum}:${distro_bootpart}...; for;
+scan_dev_for_boot_part=part list ${devtype} ${devnum} -bootable devplist; env et
+scan_dev_for_efi=setenv efi_fdtfile ${fdtfile}; if test -z "${fdtfile}" -a -n "e
+scan_dev_for_extlinux=if test -e ${devtype} ${devnum}:${distro_bootpart} ${prefi
+scan_dev_for_scripts=for script in ${boot_scripts}; do if test -e ${devtype} ${e
+scriptaddr=0x10000000                                                           
+soc=tegra20                                                                     
+stderr=serial,vidconsole                                                        
+stdin=serial,usbkbd                                                             
+stdout=serial,vidconsole                                                        
+usb_boot=usb start; if usb dev ${devnum}; then devtype=usb; run scan_dev_for_boi
+vendor=nvidia                                                                   
+                                                                                
+Environment size: 3962/8188 bytes
+
+```
 
 
 

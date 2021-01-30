@@ -1,10 +1,23 @@
 # TPT1838
-TPT183825C
+TPT183825C, TP00028AA for **FCC**
 
-# Good workers on Github
-Koshu
+# Tegra2 or T20
+[Tegra on Wikipedia](https://en.wikipedia.org/wiki/Tegra#Tegra_2)
 
-jbaiter
+* 2 ARM Cortex-A9 CPU at 1 GHz
+* an ultra low power (ULP) GeForce GPU at 333 MHz
+* 32-bit memory controller with either LPDDR2-600 or DDR2-667 memory at 300 MHz
+* a 32KB icache/32KB dcache L1 cache per core and a shared 1MB L2 cache
+* 40 nm semiconductor technology
+
+# Chip information
+chip name: t20
+
+chip id: 0x20 major: 1 minor: 4
+
+chip sku: 0x8
+
+chip uid: 0x00000000000000000a843046439f30d7
 
 # Useful links
 [DPavlin's work](https://saturn.ffzg.hr/rot13/index.cgi?lenovo_thinkpad_tablet)
@@ -35,7 +48,7 @@ jbaiter
 
 # APX mode
 ## What's APX mode?
-[XDA APX](https://forum.xda-developers.com/wiki/APX_mode)
+[XDA APX mode](https://forum.xda-developers.com/wiki/APX_mode)
 
 APX mode is a special low-level diagnostic and device-programming mode for NVIDIA Tegra–based devices. The firmware implementing APX mode is stored in the boot ROM and hence can never be changed.
 ## How to enter APX mode?
@@ -54,7 +67,7 @@ Press and hold the power button for about six seconds. The device should immedia
 * NVIDIA's **nvflash** program can be used for controlling/manipulating a device in APX mode.
 * NVIDIA's **tegrarcm** program can be used to send code to Tegra devices.
 
-# nvflash, first try, failed caused by SBK
+# nvflash
 [nvflash download](http://developer.download.nvidia.com/mobile/tegra/l4t/r16.5.0/ventana_release_armhf/Tegra20_Linux_R16.5_armhf.tbz2)
 
 [nvflash on XDA](https://forum.xda-developers.com/showthread.php?t=1745450)
@@ -71,25 +84,18 @@ SUBSYSTEM=="usb", ATTR{idVendor}=="0955", ATTR{idProduct}=="7820", MODE="0660"`
 The purpose is to use nvflash without in **root** mode.
 
 After the connection of the tablet in APX mode, try to call nvflash command.
-My God, **nvflash** doesn't work, the tablet gets disconnected quickly, because **Secure Boot Key (SBK)** has been enabled on the device.
+
+## Secure Boot Key (SBK)
 
 ```NVIDIA Tegra 2 systems have an optional signing process using a Secure Boot Key (SBK). A SBK is a shared-secret AES128 encryption key. The SBK is permanently burned into ROM within the device, and is readable only by a hardware AES engine.
 
 Devices employing the SBK mechanism require nvflash commands to be encrypted with the SBK; nvflash performs the encryption, given the SBK value. If this is not done, or the given SBK is incorrect, nvflash will exit with status 0x4. 
 ```
 
-Next step, try to get the SBK in the tablet.
-
-
-# Try to find out SBK with SBK Dumper
-Some useful information from the following link:
-[SBK Dumper](https://forum.xda-developers.com/showthread.php?t=2071626)
-
-In the linux kernel, there is some protection that block the user try to read out SBK when the device in **odm_production** status.
-/sys/firmware/fuse/secure_boot_key
+# ADB
 
 Start the tablet and enable the Debug mode
-Confirmation in shell:
+In shell:
 
 `Bus 003 Device 004: ID 17ef:741c Lenovo ThinkPadTablet`
 List of devices with **adb**:
@@ -211,13 +217,6 @@ major minor  #blocks  name
  179        9    1931196 mmcblk1p1
 
 ```
-```
-
-```
-
-```
-```
-
 
 Enable support of **su** for adb:
 
@@ -948,5 +947,52 @@ Environment size: 3962/8188 bytes
 
 ```
 
+# Buttons
+| Button | Pin | GPIO |Comment|
+|:---|:---|:---|:---|
+|Menu(Rotation)|KB_COL0|Q.00| |
+|Home|KB_COL1|Q.01| |
+|Back|KB_COL2|Q.02| |
+|Search(WWW)|KB_COL3|Q.03| |
+|VolumeDown|KB_COL4|Q.04| |
+|VolumeUp|KB_COL5|Q.05| |
+|Lock|KB_COL6|Q.06|not soldered|
+|ON/OFF|ON_OFF |GPIO18 |Connected on KB930 |
+|RECOVERY|ICH_PWROK |GPXIOA07 |Connected on KB930 |
+
+# Straps for LPDDR2
+1 GB SDRAM is supported by Tegra2.
+
+3 different SDRAM is supported by the tablet. They are distinguished by the strap **RAM_CODE**.
+
+**RAM_CODE** is read during the power-on-reset from GMI_AD[7:4] of **APB_MISC_PP_STRAPPING_OPT_A_0**.
+
+GMI_AD[7:4] share same pads with GPIO G.[07:04].
+
+3 different SDRAM are:
+
+| Strap value | Manufacturer | Comment |
+|:---|:---|:---|
+|0b0000 | Elpida |1GB |
+|0b0001 | Hynix |1GB |
+|0b0010 | Samsung |1GB |
+
+For my tablet 183825C, Hynix 1GB LPDDR2 SDRAM is used. It's confirmed with:
+
+The output of **dmesg**:
+
+```
+<4>[    5.347106] ################strap=1 #################
+<6>[    5.347194] ventana_emc_init: Hynix 1GB memory found
+<6>[    5.347352] tegra_init_emc: Hynix 300MHz memory found
+```
+
+The output of **nvflash**:
+
+```
+   sdram config strap: 1
+```
+
+And there are 3 SDRAM configuration sets in BCT. The second one is selected as per the strap value.
 
 

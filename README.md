@@ -4,6 +4,7 @@ TPT183825C, TP00028AA for **FCC**
 # Tegra2 or T20
 [Tegra on Wikipedia](https://en.wikipedia.org/wiki/Tegra#Tegra_2)
 
+* 1 boot CPU ARM7TDMI
 * 2 ARM Cortex-A9 CPU at 1 GHz
 * an ultra low power (ULP) GeForce GPU at 333 MHz
 * 32-bit memory controller with either LPDDR2-600 or DDR2-667 memory at 300 MHz
@@ -20,6 +21,9 @@ chip sku: 0x8
 chip uid: 0x00000000000000000a843046439f30d7
 
 # Useful links
+
+[NVIDIA Tegra Public AppNotes](http://http.download.nvidia.com/tegra-public-appnotes/)
+
 [DPavlin's work](https://saturn.ffzg.hr/rot13/index.cgi?lenovo_thinkpad_tablet)
 
 [A500 Info](http://projects.pappkartong.se/a500/)

@@ -864,6 +864,37 @@ System Information:
 
 ```
 
+# BCT dump
+```
+Version       = 0x00020001;
+BlockSize     = 0x00004000;
+PageSize      = 0x00000200;
+PartitionSize = 0x01000000;
+OdmData       = 0x300d8011;
+# Bootloader used       = 1;
+# Bootloaders max       = 4;
+# BCT size              = 4080;
+# Hash size             = 16;
+# Crypto offset         = 16;
+# Crypto length         = 4064;
+# Max BCT search blocks = 64;
+#
+# These values are set by cbootimage using the
+# bootloader provided by the Bootloader=...
+# configuration option.
+#
+# Bootloader[0].Version      = 0x00000004;
+# Bootloader[0].Start block  = 384;
+# Bootloader[0].Start page   = 0;
+# Bootloader[0].Length       = 1569544;
+# Bootloader[0].Load address = 0x00108000;
+# Bootloader[0].Entry point  = 0x00108000;
+# Bootloader[0].Attributes   = 0x00000004;
+# Bootloader[0].Bl AES Hash  = 0e80b8739d004dccc15b8d0d593ef227;
+# Bootloader[0].RsaPssSigBl:
+
+```
+
 # tegrarcm
 [tegrarcm on Github](https://github.com/NVIDIA/tegrarcm)
 

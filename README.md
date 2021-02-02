@@ -985,13 +985,15 @@ Environment size: 3962/8188 bytes
 # Buttons
 | Button | Pin | GPIO |Comment|
 |:---|:---|:---|:---|
-|Menu(Rotation)|KB_COL0|Q.00| |
-|Home|KB_COL1|Q.01| |
-|Back|KB_COL2|Q.02| |
-|Search(WWW)|KB_COL3|Q.03| |
-|VolumeDown|KB_COL4|Q.04| |
-|VolumeUp|KB_COL5|Q.05| |
-|Lock|KB_COL6|Q.06|not soldered|
+|WWW|KB_COL0|Q.00| |
+|HOMEPAGE|KB_COL1|Q.01| |
+|BACK|KB_COL2|Q.02| |
+|AUTO_ROTATION|KB_COL3|Q.03| |
+|VOLUMEDOWN|KB_COL4|Q.04| |
+|VOLUMEUP|KB_COL5|Q.05| |
+|LOCK|KB_COL6|Q.06|not soldered|
+|POWER|?? |C.07 | |
+|POWER|?? |I.03 | |
 |ON/OFF|ON_OFF |GPIO18 |Connected on KB930 |
 |RECOVERY|ICH_PWROK |GPXIOA07 |Connected on KB930 |
 

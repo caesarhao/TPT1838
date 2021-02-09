@@ -1,0 +1,4 @@
+https://pcchip.su/help/emmc/samsung-emmc/
+Code name 	Part Number 		eMMC Memory 	Package pin 	Package size 	JEDEC Standard
+MBG8FA 		KLMBG8FEJA-A001 	32GB 			169FBGA 		12.0x16x1.4 	4.41
+

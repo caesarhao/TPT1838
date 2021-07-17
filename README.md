@@ -997,6 +997,11 @@ Environment size: 3962/8188 bytes
 |ON/OFF|ON_OFF |GPIO18 |Connected on KB930 |
 |RECOVERY|ICH_PWROK |GPXIOA07 |Connected on KB930 |
 
+# Strap Register
+**APB_MISC_PP_STRAPPING_OPT_A_0**
+Offset: 008h | Read/Write: R/W | Reset: 0bxxxxxxxxxxxxxxxx0xxxxxxx0
+
+
 # Straps for LPDDR2
 1 GB SDRAM is supported by Tegra2.
 
@@ -1032,4 +1037,12 @@ The output of **nvflash**:
 
 And there are 3 SDRAM configuration sets in BCT. The second one is selected as per the strap value.
 
+# Straps for Boot Select
+According to the datasheet colibri-t20 from Toradex, four pins GMI_AD[15:12] are used to select boot device.
+**BOOT_SELECT** is read during the power-on-reset from GMI_AD[15:12] of **APB_MISC_PP_STRAPPING_OPT_A_0**.
+GMI_AD[15:12] share same pads with GPIO H.[07:04].
 
+| Strap value | Boot Device | Comment |
+|:---|:---|:---|
+|0b1111 | Internal Flash | |
+|0b0000 | MMC/SD Card | |

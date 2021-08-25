@@ -983,17 +983,17 @@ Environment size: 3962/8188 bytes
 ```
 
 # Buttons
-| Button | Pin | GPIO |Comment|
-|:---|:---|:---|:---|
-|WWW|KB_COL0|Q.00| |
-|HOMEPAGE|KB_COL1|Q.01| |
-|BACK|KB_COL2|Q.02| |
-|AUTO_ROTATION|KB_COL3|Q.03| |
-|VOLUMEDOWN|KB_COL4|Q.04| |
-|VOLUMEUP|KB_COL5|Q.05| |
+| Button | Key code in CWM 6.0.1.2 | Pin | GPIO |Comment|
+|:---|:---|:---|:---|:---|
+|WWW|150|KB_COL0|Q.00| |
+|HOME|172|KB_COL1|Q.01| |
+|BACK|158|KB_COL2|Q.02| |
+|AUTO_ROTATION|248|KB_COL3|Q.03| |
+|VOLUME_DOWN|114|KB_COL4|Q.04| |
+|VOLUME_UP|115|KB_COL5|Q.05| |
 |LOCK|KB_COL6|Q.06|not soldered|
-|POWER|?? |C.07 | |
-|POWER|?? |I.03 | |
+|POWER|116|?? |C.07 | |
+|POWER|116|?? |I.03 | |
 |ON/OFF|ON_OFF |GPIO18 |Connected on KB930 |
 |RECOVERY|ICH_PWROK |GPXIOA07 |Connected on KB930 |
 

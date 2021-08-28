@@ -1,82 +1,422 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>10</zoom_level>
+  <zoom_level>7</zoom_level>
   <element>
-    <id>UMLClass</id>
+    <id>Relation</id>
     <coordinates>
-      <x>540</x>
-      <y>160</y>
-      <w>100</w>
-      <h>430</h>
+      <x>378</x>
+      <y>112</y>
+      <w>77</w>
+      <h>28</h>
     </coordinates>
-    <panel_attributes>*U1*
+    <panel_attributes>lt=&lt;-
+RGB 1V8</panel_attributes>
+    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>210</x>
+      <y>112</y>
+      <w>84</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+LVDS</panel_attributes>
+    <additional_attributes>10.0;20.0;100.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>378</x>
+      <y>154</y>
+      <w>77</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+HDMI</panel_attributes>
+    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>217</x>
+      <y>154</y>
+      <w>77</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+HDMI</panel_attributes>
+    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>210</x>
+      <y>210</y>
+      <w>84</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;
+Mini PCIe
+USB2.0
+SMBus 2.0</panel_attributes>
+    <additional_attributes>10.0;20.0;100.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>378</x>
+      <y>203</y>
+      <w>77</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+ULPI 1V8</panel_attributes>
+    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>63</x>
+      <y>210</y>
+      <w>63</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;
+UICC</panel_attributes>
+    <additional_attributes>10.0;20.0;70.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>441</x>
+      <y>84</y>
+      <w>70</w>
+      <h>406</h>
+    </coordinates>
+    <panel_attributes>U1
+--
 Tegra 2
 T20
 PHJ00
 vetena
-
-</panel_attributes>
+Dual-core
+Cortex-A9</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLClass</id>
+    <id>UMLPackage</id>
     <coordinates>
-      <x>270</x>
-      <y>160</y>
-      <w>150</w>
-      <h>40</h>
+      <x>280</x>
+      <y>91</y>
+      <w>105</w>
+      <h>49</h>
     </coordinates>
-    <panel_attributes>*LVDS Bridge*
-SN75LVDS83BZQLR</panel_attributes>
+    <panel_attributes>U9
+--
+*LVDS Bridge*
+SN75LVDS83BZQLR
+halign=left</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>Relation</id>
+    <id>UMLPackage</id>
     <coordinates>
-      <x>410</x>
-      <y>160</y>
-      <w>150</w>
-      <h>40</h>
+      <x>91</x>
+      <y>91</y>
+      <w>126</w>
+      <h>49</h>
     </coordinates>
-    <panel_attributes>lt=&lt;-
-RGB 1V8</panel_attributes>
-    <additional_attributes>10.0;20.0;130.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>30</x>
-      <y>150</y>
-      <w>170</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>*10.1" TFT-LCD Panel*
+    <panel_attributes>JLVDS1
+--
+*10.1" TFT-LCD Panel*
 LP101WX1_LG
-1280x800@60Hz</panel_attributes>
+WXGA 1280x800@60Hz
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>280</x>
+      <y>140</y>
+      <w>105</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>U14
+--
+*HDMI MUX*
+PI3HDMI412FT
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>280</x>
+      <y>189</y>
+      <w>105</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>U23
+--
+*ULPI to USB*
+SMSC USB3315
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>119</x>
+      <y>140</y>
+      <w>105</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>JHDMI1
+--
+*Mini HDMI*
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>112</x>
+      <y>189</y>
+      <w>105</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>JWWAN1
+--
+*3G Card*
+Ericsson F5521gw
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>7</x>
+      <y>189</y>
+      <w>63</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>JSIM1
+--
+*SIM Card*
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>259</x>
+      <y>245</y>
+      <w>126</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>JWLAN1
+--
+*WIFI/BT*
+Azurewave AW-NH931
+halign=left</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>190</x>
-      <y>160</y>
-      <w>100</w>
-      <h>40</h>
+      <x>378</x>
+      <y>259</y>
+      <w>77</w>
+      <h>35</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-LVDS</panel_attributes>
-    <additional_attributes>10.0;20.0;80.0;20.0</additional_attributes>
+SDIO1
+UART3</panel_attributes>
+    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
   </element>
   <element>
-    <id>UMLClass</id>
+    <id>UMLPackage</id>
     <coordinates>
-      <x>110</x>
-      <y>280</y>
-      <w>150</w>
-      <h>40</h>
+      <x>280</x>
+      <y>294</y>
+      <w>105</w>
+      <h>49</h>
     </coordinates>
-    <panel_attributes>*Touch Screen*
-</panel_attributes>
+    <panel_attributes>U29
+--
+*GPS*
+BCM4751
+halign=left</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>378</x>
+      <y>308</y>
+      <w>77</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+UART2</panel_attributes>
+    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>280</x>
+      <y>343</y>
+      <w>105</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>JP4
+--
+*Debug*
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>378</x>
+      <y>357</y>
+      <w>77</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+UART4</panel_attributes>
+    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>280</x>
+      <y>392</y>
+      <w>105</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>JUSB2
+--
+*Micro USB*
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>378</x>
+      <y>406</y>
+      <w>77</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+USB1</panel_attributes>
+    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>280</x>
+      <y>441</y>
+      <w>105</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>JUSB1
+--
+*Standard USB*
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>378</x>
+      <y>455</y>
+      <w>77</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+USB3</panel_attributes>
+    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>112</y>
+      <w>98</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+LPDDR2 1V2</panel_attributes>
+    <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>588</x>
+      <y>98</y>
+      <w>126</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>U4
+--
+*LPDDR2 1GB 300MHz*
+Hynix HY5PS1G1631CFP
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>161</y>
+      <w>98</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+HSMMC</panel_attributes>
+    <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>588</x>
+      <y>147</y>
+      <w>126</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>U37
+--
+*eMMC NAND 32GB*
+Hynix KLMBG8FEJA
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>196</y>
+      <w>70</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=(+)-
+I2C</panel_attributes>
+    <additional_attributes>80.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>553</x>
+      <y>210</y>
+      <w>21</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
   </element>
 </diagram>

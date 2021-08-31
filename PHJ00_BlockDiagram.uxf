@@ -4,8 +4,8 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>378</x>
-      <y>112</y>
+      <x>385</x>
+      <y>126</y>
       <w>77</w>
       <h>28</h>
     </coordinates>
@@ -16,8 +16,8 @@ RGB 1V8</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>210</x>
-      <y>112</y>
+      <x>217</x>
+      <y>126</y>
       <w>84</w>
       <h>28</h>
     </coordinates>
@@ -28,8 +28,20 @@ LVDS</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>378</x>
-      <y>154</y>
+      <x>385</x>
+      <y>168</y>
+      <w>77</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+HDMI</panel_attributes>
+    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>224</x>
+      <y>168</y>
       <w>77</w>
       <h>28</h>
     </coordinates>
@@ -41,19 +53,7 @@ HDMI</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>217</x>
-      <y>154</y>
-      <w>77</w>
-      <h>28</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-HDMI</panel_attributes>
-    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>210</x>
-      <y>210</y>
+      <y>224</y>
       <w>84</w>
       <h>42</h>
     </coordinates>
@@ -66,8 +66,8 @@ SMBus 2.0</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>378</x>
-      <y>203</y>
+      <x>385</x>
+      <y>217</y>
       <w>77</w>
       <h>28</h>
     </coordinates>
@@ -78,8 +78,8 @@ ULPI 1V8</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>63</x>
-      <y>210</y>
+      <x>70</x>
+      <y>224</y>
       <w>63</w>
       <h>28</h>
     </coordinates>
@@ -90,8 +90,8 @@ UICC</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>441</x>
-      <y>84</y>
+      <x>448</x>
+      <y>98</y>
       <w>70</w>
       <h>406</h>
     </coordinates>
@@ -108,8 +108,8 @@ Cortex-A9</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>280</x>
-      <y>91</y>
+      <x>287</x>
+      <y>105</y>
       <w>105</w>
       <h>49</h>
     </coordinates>
@@ -123,8 +123,8 @@ halign=left</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>91</x>
-      <y>91</y>
+      <x>98</x>
+      <y>105</y>
       <w>126</w>
       <h>49</h>
     </coordinates>
@@ -139,8 +139,8 @@ halign=left</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>280</x>
-      <y>140</y>
+      <x>287</x>
+      <y>154</y>
       <w>105</w>
       <h>49</h>
     </coordinates>
@@ -154,8 +154,8 @@ halign=left</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>280</x>
-      <y>189</y>
+      <x>287</x>
+      <y>203</y>
       <w>105</w>
       <h>49</h>
     </coordinates>
@@ -169,8 +169,8 @@ halign=left</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>119</x>
-      <y>140</y>
+      <x>126</x>
+      <y>154</y>
       <w>105</w>
       <h>49</h>
     </coordinates>
@@ -183,8 +183,8 @@ halign=left</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>112</x>
-      <y>189</y>
+      <x>119</x>
+      <y>203</y>
       <w>105</w>
       <h>49</h>
     </coordinates>
@@ -198,8 +198,8 @@ halign=left</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>7</x>
-      <y>189</y>
+      <x>14</x>
+      <y>203</y>
       <w>63</w>
       <h>49</h>
     </coordinates>
@@ -212,8 +212,8 @@ halign=left</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>259</x>
-      <y>245</y>
+      <x>266</x>
+      <y>259</y>
       <w>126</w>
       <h>49</h>
     </coordinates>
@@ -227,8 +227,8 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>378</x>
-      <y>259</y>
+      <x>385</x>
+      <y>273</y>
       <w>77</w>
       <h>35</h>
     </coordinates>
@@ -240,8 +240,8 @@ UART3</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>280</x>
-      <y>294</y>
+      <x>287</x>
+      <y>308</y>
       <w>105</w>
       <h>49</h>
     </coordinates>
@@ -255,8 +255,8 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>378</x>
-      <y>308</y>
+      <x>385</x>
+      <y>322</y>
       <w>77</w>
       <h>28</h>
     </coordinates>
@@ -267,8 +267,8 @@ UART2</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>280</x>
-      <y>343</y>
+      <x>287</x>
+      <y>357</y>
       <w>105</w>
       <h>49</h>
     </coordinates>
@@ -281,8 +281,8 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>378</x>
-      <y>357</y>
+      <x>385</x>
+      <y>371</y>
       <w>77</w>
       <h>28</h>
     </coordinates>
@@ -293,8 +293,8 @@ UART4</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>280</x>
-      <y>392</y>
+      <x>287</x>
+      <y>406</y>
       <w>105</w>
       <h>49</h>
     </coordinates>
@@ -307,8 +307,8 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>378</x>
-      <y>406</y>
+      <x>385</x>
+      <y>420</y>
       <w>77</w>
       <h>28</h>
     </coordinates>
@@ -319,8 +319,8 @@ USB1</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>280</x>
-      <y>441</y>
+      <x>287</x>
+      <y>455</y>
       <w>105</w>
       <h>49</h>
     </coordinates>
@@ -333,8 +333,8 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>378</x>
-      <y>455</y>
+      <x>385</x>
+      <y>469</y>
       <w>77</w>
       <h>28</h>
     </coordinates>
@@ -345,8 +345,8 @@ USB3</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>504</x>
-      <y>112</y>
+      <x>511</x>
+      <y>126</y>
       <w>98</w>
       <h>28</h>
     </coordinates>
@@ -357,8 +357,8 @@ LPDDR2 1V2</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>588</x>
-      <y>98</y>
+      <x>595</x>
+      <y>112</y>
       <w>126</w>
       <h>49</h>
     </coordinates>
@@ -372,8 +372,8 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>504</x>
-      <y>161</y>
+      <x>511</x>
+      <y>175</y>
       <w>98</w>
       <h>28</h>
     </coordinates>
@@ -384,8 +384,8 @@ HSMMC</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>588</x>
-      <y>147</y>
+      <x>595</x>
+      <y>161</y>
       <w>126</w>
       <h>49</h>
     </coordinates>
@@ -399,24 +399,213 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>504</x>
-      <y>196</y>
+      <x>511</x>
+      <y>210</y>
       <w>70</w>
-      <h>28</h>
+      <h>35</h>
     </coordinates>
     <panel_attributes>lt=(+)-
-I2C</panel_attributes>
+I2C_1
+1V8</panel_attributes>
     <additional_attributes>80.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>553</x>
-      <y>210</y>
+      <x>560</x>
+      <y>224</y>
       <w>21</w>
       <h>77</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>595</x>
+      <y>210</y>
+      <w>126</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>U12
+--
+*Audio Codec*
+Wolfson WM8903
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>560</x>
+      <y>231</y>
+      <w>49</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=-
+@1a</panel_attributes>
+    <additional_attributes>10.0;20.0;50.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>595</x>
+      <y>259</y>
+      <w>126</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>U??
+--
+*Ambient Light Sensor*
+Wolfson AL3000A
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>560</x>
+      <y>273</y>
+      <w>49</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=-
+@1c</panel_attributes>
+    <additional_attributes>10.0;20.0;50.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>511</x>
+      <y>308</y>
+      <w>70</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=(+)-
+I2C_2
+1V8</panel_attributes>
+    <additional_attributes>80.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>560</x>
+      <y>329</y>
+      <w>49</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=-
+@1a</panel_attributes>
+    <additional_attributes>10.0;20.0;50.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>560</x>
+      <y>322</y>
+      <w>21</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>560</x>
+      <y>371</y>
+      <w>49</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=-
+@1c</panel_attributes>
+    <additional_attributes>10.0;20.0;50.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>595</x>
+      <y>308</y>
+      <w>126</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>U18
+--
+*Level Shift*
+PCA9306DCUR
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>595</x>
+      <y>357</y>
+      <w>126</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>U??
+--
+*Ambient Light Sensor*
+Wolfson AL3000A
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>784</x>
+      <y>308</y>
+      <w>70</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>U5
+--
+*EC*
+ENE KB930
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>714</x>
+      <y>322</y>
+      <w>84</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+SMB
+3V3</panel_attributes>
+    <additional_attributes>10.0;20.0;100.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>847</x>
+      <y>322</y>
+      <w>84</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=-
+SPI
+</panel_attributes>
+    <additional_attributes>10.0;20.0;100.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>917</x>
+      <y>308</y>
+      <w>70</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>U7
+--
+*BIOS*
+MX25L1005AMC
+halign=left</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>

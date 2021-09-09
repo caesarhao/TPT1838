@@ -431,7 +431,7 @@ I2C_1
     <panel_attributes>U12
 --
 *Audio Codec*
-Wolfson WM8903
+Wolfson WM8903L
 halign=left</panel_attributes>
     <additional_attributes/>
   </element>
@@ -557,13 +557,13 @@ halign=left</panel_attributes>
     <coordinates>
       <x>784</x>
       <y>308</y>
-      <w>70</w>
+      <w>77</w>
       <h>49</h>
     </coordinates>
     <panel_attributes>U5
 --
 *EC*
-ENE KB930
+ENE KB930QF
 halign=left</panel_attributes>
     <additional_attributes/>
   </element>
@@ -583,28 +583,29 @@ SMB
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>847</x>
+      <x>854</x>
       <y>322</y>
-      <w>84</w>
+      <w>77</w>
       <h>35</h>
     </coordinates>
     <panel_attributes>lt=-
 SPI
 </panel_attributes>
-    <additional_attributes>10.0;20.0;100.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLPackage</id>
     <coordinates>
       <x>917</x>
       <y>308</y>
-      <w>70</w>
-      <h>49</h>
+      <w>77</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>U7
 --
 *BIOS*
-MX25L1005AMC
+Winbond
+W25X10BVNIG
 halign=left</panel_attributes>
     <additional_attributes/>
   </element>

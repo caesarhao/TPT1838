@@ -4,8 +4,8 @@ TPT183825C, TP00028AA for **FCC**
 # Tegra2 or T20
 [Tegra on Wikipedia](https://en.wikipedia.org/wiki/Tegra#Tegra_2)
 
-* 1 boot CPU ARM7TDMI
-* 2 ARM Cortex-A9 CPU at 1 GHz
+* 1 boot CPU ARM7TDMI (ARMv4)
+* 2 ARM Cortex-A9 CPU at 1 GHz (ARMv7-A)
 * an ultra low power (ULP) GeForce GPU at 333 MHz
 * 32-bit memory controller with either LPDDR2-600 or DDR2-667 memory at 300 MHz
 * a 32KB icache/32KB dcache L1 cache per core and a shared 1MB L2 cache

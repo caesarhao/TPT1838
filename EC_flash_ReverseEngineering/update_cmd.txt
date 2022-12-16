@@ -1,0 +1,2 @@
+EC_flash -ota ec.rom
+

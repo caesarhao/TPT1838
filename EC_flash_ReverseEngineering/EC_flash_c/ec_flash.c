@@ -5,6 +5,8 @@
 
 void disable_batterypolling(void);
 char CRC8_Calculator(uint8_t *data, int32_t length);
+void display_version(void);
+void display_usage(void);
 // int open(const char *path, int oflag, ... );
 //ssize_t write(int fildes, const void *buf, size_t nbyte);
 // ssize_t read(int fildes, void *buf, size_t nbyte);
@@ -32,17 +34,17 @@ void disable_batterypolling(void)
 
 
 read_ec_device (int32_t arg1, int32_t arg2)
-int read_ec_device(undefined param_1,void *buf)
+int read_ec_device(uint8_t reg, void *buf)
 
 {
   ssize_t nbytes;
   off_t fl;
   int retu;
-  char cmd[5];
+  uint8_t cmd[5];
   int fd;
   
   fd = 0;
-  cmd[0] = param_1;
+  cmd[0] = reg;
   fd = open("/sys/EcControl/ECflashread", (O_RDWR|O_NONBLOCK));
   if (fd < 0) {
     puts("peter ==== error: cannot open EC device file!");
@@ -76,26 +78,22 @@ int read_ec_device(undefined param_1,void *buf)
   return retu;
 }
 
-
-write_ec_device (int32_t arg1, int32_t arg2)
-undefined4 write_ec_device(undefined param_1,undefined *param_2,int param_3)
-
+int write_ec_device(uint8_t reg, void *sndBuf, int sndLen)
 {
   ssize_t nbytes;
-  undefined4 retu;
-  undefined local_18;
-  undefined local_17;
-  undefined local_16;
+  int retu;
+  uint8_t local_18;
+  uint8_t local_17;
+  uint8_t local_16;
   int fd;
-  
   fd = 0;
-  local_17 = param_2[1];
-  local_16 = *param_2;
-  if (param_3 == 1) {
+  local_17 = sndBuf[1];
+  local_16 = *sndBuf;
+  if (sndLen == 1) {
     local_17 = 0;
-    local_16 = *param_2;
+    local_16 = *sndBuf;
   }
-  local_18 = param_1;
+  local_18 = reg;
   fd = open("/sys/EcControl/ECflashwrite", (O_RDWR|O_NONBLOCK));
   if (fd < 0) {
     puts("peter ==== error: cannot open EC device file!");
@@ -115,60 +113,61 @@ undefined4 write_ec_device(undefined param_1,undefined *param_2,int param_3)
   return retu;
 }
 
-
-KBC_CMD_DATAS (int32_t arg1, int32_t arg2)
-undefined4 KBC_CMD_DATAS(undefined param_1,undefined4 param_2,int param_3,undefined4 param_4)
-
+int KBC_CMD_DATAS(uint8_t reg, void *sndBuf, int sndLen, void *rcvBuf, int rcvLen)
 {
-  int iVar1;
+  int nbytes;
   
-  if (param_3 < 1) {
-    iVar1 = read_ec_device(param_1, param_4);
-    if (iVar1 == 0) {
+  if (sndLen < 1) {
+    nbytes = read_ec_device(reg, rcvBuf);
+    if (nbytes == 0) {
       puts("peter ==== read_ec_device fail");
       return 0;
     }
   }
   else {
-    iVar1 = write_ec_device(param_1, param_2, param_3);
-    if (iVar1 == 0) {
+    nbytes = write_ec_device(reg, sndBuf, sndLen);
+    if (nbytes == 0) {
       puts("peter ==== write_ec_device fail");
       return 0;
     }
   }
   return 1;
 }
-strlwr (char *arg1)
 
-HexStr2DWORD (int32_t arg1)
-int HexStr2DWORD(byte *param_1)
-
+uint32_t HexStr2DWORD(char *str)
 {
-  byte *local_14;
+  uint8_t *local_14;
   int local_c;
   
   local_c = 0;
-  local_14 = param_1;
+  local_14 = str;
   do {
     if (*local_14 == 0) {
       return local_c;
     }
-    if ((*local_14 < 0x30) || (0x39 < *local_14)) {
-      if ((*local_14 < 0x61) || (0x66 < *local_14)) {
-        if ((*local_14 < 0x41) || (0x46 < *local_14)) {
+    if ((*local_14 < '0') || ('9' < *local_14)) 
+    {
+      if ((*local_14 < 'a') || ('f' < *local_14)) 
+      {
+        if ((*local_14 < 'A') || ('F' < *local_14)) {
           return 0;
         }
-        local_c = local_c * 0x10 + (uint)*local_14 + -0x37;
+        else
+        {
+          local_c = local_c * 0x10 + (uint)*local_14 + 0x0A - 'A';
+        }
       }
-      else {
-        local_c = local_c * 0x10 + (uint)*local_14 + -0x57;
+      else 
+      {
+        local_c = local_c * 0x10 + (uint)*local_14 + 0x0A - 'a';
       }
     }
     else {
-      local_c = local_c * 0x10 + (uint)*local_14 + -0x30;
+      local_c = local_c * 0x10 + (uint)*local_14 + - '0';
     }
     local_14 = local_14 + 1;
   } while( true );
+  return local_c;
 }
 
 void display_version(void)
@@ -222,8 +221,11 @@ char CRC8_Calculator(uint8_t *data, int32_t length)
 }
 
 int main (int argc, char *argv[])
-int main(int param_1,int param_2)
+int main(int argc,int param_2)
+int main (int argc, char *argv[])
 {
+  uint16_t SendData;
+  uint16_t ReData;
   int iVar1;
   char *pcVar2;
   undefined4 uVar3;
@@ -248,7 +250,7 @@ int main(int param_1,int param_2)
   local_34 = 0;
   local_27 = '\0';
   for (local_30 = 1; local_30 < argc; local_30 = local_30 + 1) {
-    pcVar2 = (char *)strlwr(*(undefined4 *)(local_30 * 4 + param_2));
+    pcVar2 = (char *)strlwr(*(undefined4 *)(local_30 * 4 + argv));
     strcpy(local_84,pcVar2);
     pcVar2 = (char *)strncmp("-d",local_84,2);
     if (pcVar2 == (char *)0x0) {
@@ -326,10 +328,12 @@ int main(int param_1,int param_2)
   }
   if ((local_34 != 2) && (local_34 == 1)) {
     local_14 = 0;
+    // read register 0x30
     KBC_CMD_DATAS(0x30,&SendData,0,&ReData,2);
     gRamID = ReData;
     gRamMVer = DAT_00093279;
     usleep(100000);
+    // read register 0x31
     KBC_CMD_DATAS(0x31,&SendData,0,&ReData,2);
     gRamSVer = ReData;
     gRamTVer = DAT_00093279;
@@ -343,7 +347,7 @@ int main(int param_1,int param_2)
     local_1c = (uint)ReData * 0x100 + (uint)DAT_00093279;
     KBC_CMD_DATAS(0xb0,&SendData,0,&ReData,2);
     local_25 = ReData;
-    if ((ReData == 0x55) && (gBootLoader != '\0')) {
+    if ((ReData == 'U') && (gBootLoader != '\0')) {
       gBootLoader = '\0';
       puts("Boot block will not be updated. \r");
     }
@@ -419,7 +423,7 @@ int main(int param_1,int param_2)
             KBC_CMD_DATAS(0xb9,&SendData,2,&ReData,0);
           }
         }
-        SendData._0_1_ = CRC8_Calculator(DataArray,0x20);
+        SendData._0_1_ = CRC8_Calculator(DataArray, 0x20);
         SendData._1_1_ = (byte)temp;
         KBC_CMD_DATAS(0xb9,&SendData,2,&ReData,0);
       }

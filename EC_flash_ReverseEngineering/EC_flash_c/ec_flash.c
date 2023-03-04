@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <stdbool.h>
 #include <stdint.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -13,18 +15,18 @@ void display_usage(void);
 // off_t lseek(int fildes, off_t offset, int whence);
 void disable_batterypolling(void)
 {
-  ssize_t bytes_written;
-  char buf[4];
+  ssize_t nbytes;
+  uint8_t cmd[4];
   int fd;
   
-  buf[0] = '1';
+  cmd[0] = '1';
   fd = open("/sys/EcControl/ECflashMode", (O_RDWR|O_NONBLOCK));
   if (fd < 0) {
     puts("error: cannot open EC device file!");
   }
   else {
-    bytes_written = write(fd, buf, 1);
-    if (bytes_written < 0) {
+    nbytes = write(fd, cmd, 1);
+    if (nbytes < 0) {
       puts("error: write ec node.");
     }
   }
@@ -32,15 +34,12 @@ void disable_batterypolling(void)
   return;
 }
 
-
-read_ec_device (int32_t arg1, int32_t arg2)
 int read_ec_device(uint8_t reg, void *buf)
-
 {
   ssize_t nbytes;
   off_t fl;
   int retu;
-  uint8_t cmd[5];
+  uint8_t cmd[4];
   int fd;
   
   fd = 0;
@@ -136,38 +135,38 @@ int KBC_CMD_DATAS(uint8_t reg, void *sndBuf, int sndLen, void *rcvBuf, int rcvLe
 
 uint32_t HexStr2DWORD(char *str)
 {
-  uint8_t *local_14;
-  int local_c;
+  uint8_t *p_c;
+  uint32_t retu;
   
-  local_c = 0;
-  local_14 = str;
+  retu = 0;
+  p_c = str;
   do {
-    if (*local_14 == 0) {
-      return local_c;
+    if ('\0' == *p_c) {
+      return retu;
     }
-    if ((*local_14 < '0') || ('9' < *local_14)) 
+    if ((*p_c < '0') || ('9' < *p_c)) 
     {
-      if ((*local_14 < 'a') || ('f' < *local_14)) 
+      if ((*p_c < 'a') || ('f' < *p_c)) 
       {
-        if ((*local_14 < 'A') || ('F' < *local_14)) {
+        if ((*p_c < 'A') || ('F' < *p_c)) {
           return 0;
         }
         else
         {
-          local_c = local_c * 0x10 + (uint)*local_14 + 0x0A - 'A';
+          retu = retu * 0x10 + (uint32_t)*p_c + 0x0A - 'A';
         }
       }
       else 
       {
-        local_c = local_c * 0x10 + (uint)*local_14 + 0x0A - 'a';
+        retu = retu * 0x10 + (uint32_t)*p_c + 0x0A - 'a';
       }
     }
     else {
-      local_c = local_c * 0x10 + (uint)*local_14 + - '0';
+      retu = retu * 0x10 + (uint32_t)*p_c + - '0';
     }
-    local_14 = local_14 + 1;
+    p_c = p_c + 1;
   } while( true );
-  return local_c;
+  return retu;
 }
 
 void display_version(void)
@@ -194,7 +193,7 @@ void display_usage(void)
   exit(1);
 }
 
-char CRC8_Calculator(uint8_t *data, int32_t length)
+uint8_t CRC8_Calculator(uint8_t *data, int32_t length)
 {
   uint8_t *data_p;
   uint8_t j;
@@ -221,8 +220,6 @@ char CRC8_Calculator(uint8_t *data, int32_t length)
 }
 
 int main (int argc, char *argv[])
-int main(int argc,int param_2)
-int main (int argc, char *argv[])
 {
   uint16_t SendData;
   uint16_t ReData;
@@ -232,7 +229,7 @@ int main (int argc, char *argv[])
   int iVar4;
   char local_84 [80];
   int local_34;
-  int local_30;
+  int arg_cnt;
   char local_27;
   char local_26;
   byte local_25;
@@ -249,8 +246,8 @@ int main (int argc, char *argv[])
   pcVar2 = (char *)display_version();
   local_34 = 0;
   local_27 = '\0';
-  for (local_30 = 1; local_30 < argc; local_30 = local_30 + 1) {
-    pcVar2 = (char *)strlwr(*(undefined4 *)(local_30 * 4 + argv));
+  for (arg_cnt = 1; arg_cnt < argc; arg_cnt = arg_cnt + 1) {
+    pcVar2 = (char *)strlwr(*(undefined4 *)(arg_cnt * 4 + argv));
     strcpy(local_84,pcVar2);
     pcVar2 = (char *)strncmp("-d",local_84,2);
     if (pcVar2 == (char *)0x0) {
@@ -453,3 +450,4 @@ int main (int argc, char *argv[])
   }
   return 0;
 }
+

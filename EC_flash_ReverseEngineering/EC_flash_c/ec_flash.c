@@ -4,7 +4,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-
+#include "ene-kb3930.h"
+// Implementation based on SMBus protocol.
 void disable_batterypolling(void);
 char CRC8_Calculator(uint8_t *data, int32_t length);
 void display_version(void);
@@ -33,8 +34,8 @@ void disable_batterypolling(void)
   close(fd);
   return;
 }
-
-int read_ec_device(uint8_t reg, void *buf)
+// like SMBus Read Word, or read Byte with PEC.
+int read_ec_device(uint8_t command, void *buf)
 {
   ssize_t nbytes;
   off_t fl;
@@ -43,7 +44,7 @@ int read_ec_device(uint8_t reg, void *buf)
   int fd;
   
   fd = 0;
-  cmd[0] = reg;
+  cmd[0] = command;
   fd = open("/sys/EcControl/ECflashread", (O_RDWR|O_NONBLOCK));
   if (fd < 0) {
     puts("peter ==== error: cannot open EC device file!");
@@ -76,23 +77,23 @@ int read_ec_device(uint8_t reg, void *buf)
   }
   return retu;
 }
-
-int write_ec_device(uint8_t reg, void *sndBuf, int sndLen)
+// Like SMBus Write Word or write Byte with PEC.
+int write_ec_device(uint8_t command, void *sndBuf, int sndLen)
 {
   ssize_t nbytes;
   int retu;
   uint8_t local_18;
-  uint8_t local_17;
-  uint8_t local_16;
+  uint8_t highByte;
+  uint8_t lowByte;
   int fd;
   fd = 0;
-  local_17 = sndBuf[1];
-  local_16 = *sndBuf;
-  if (sndLen == 1) {
-    local_17 = 0;
-    local_16 = *sndBuf;
+  highByte = sndBuf[1]; // high byte
+  lowByte = *sndBuf; // low byte
+  if (sndLen == 1) { // length is 1, Send byte protocol, without command.
+    highByte = 0;
+    lowByte = *sndBuf;
   }
-  local_18 = reg;
+  local_18 = command;
   fd = open("/sys/EcControl/ECflashwrite", (O_RDWR|O_NONBLOCK));
   if (fd < 0) {
     puts("peter ==== error: cannot open EC device file!");
@@ -112,19 +113,19 @@ int write_ec_device(uint8_t reg, void *sndBuf, int sndLen)
   return retu;
 }
 
-int KBC_CMD_DATAS(uint8_t reg, void *sndBuf, int sndLen, void *rcvBuf, int rcvLen)
+int KBC_CMD_DATAS(uint8_t command, void *sndBuf, int sndLen, void *rcvBuf, int rcvLen)
 {
   int nbytes;
   
   if (sndLen < 1) {
-    nbytes = read_ec_device(reg, rcvBuf);
+    nbytes = read_ec_device(command, rcvBuf);
     if (nbytes == 0) {
       puts("peter ==== read_ec_device fail");
       return 0;
     }
   }
   else {
-    nbytes = write_ec_device(reg, sndBuf, sndLen);
+    nbytes = write_ec_device(command, sndBuf, sndLen);
     if (nbytes == 0) {
       puts("peter ==== write_ec_device fail");
       return 0;
@@ -186,13 +187,17 @@ void display_usage(void)
 {
   puts("\r");
   puts("Usage: EC_flash [-bbl] [-e1] [-e2] RomFileName   \r\n");
-  puts(" -bbl  Flash boot block too                      \r");
-  puts(" -e1   Erase EC EEPROM 116K - 120K               \r");
+  puts(" -bbl  Flash boot block too                      \r\n");
+  puts(" -e1   Erase EC EEPROM 116K - 120K               \r\n");
   puts(" -e2   Erase system EEPROM 120K - 128K           \r\n");
-                    /* WARNING: Subroutine does not return */
+  /* WARNING: Subroutine does not return */
   exit(1);
 }
 
+// PEC : CRC-8 : X8 + X2 + X + 1 : 1 0000 0111
+// Add 8 zeros at the end of divident
+// divide the bit-stream message with 0000 0111
+// The reminder with be the CRC value.
 uint8_t CRC8_Calculator(uint8_t *data, int32_t length)
 {
   uint8_t *data_p;
@@ -325,13 +330,13 @@ int main (int argc, char *argv[])
   }
   if ((local_34 != 2) && (local_34 == 1)) {
     local_14 = 0;
-    // read register 0x30
-    KBC_CMD_DATAS(0x30,&SendData,0,&ReData,2);
+    // read register EC_MODEL, 0x30
+    KBC_CMD_DATAS(EC_MODEL, &SendData, 0, &ReData, 2);
     gRamID = ReData;
     gRamMVer = DAT_00093279;
     usleep(100000);
-    // read register 0x31
-    KBC_CMD_DATAS(0x31,&SendData,0,&ReData,2);
+    // read register EC_VERSION_MAJ, 0x31
+    KBC_CMD_DATAS(EC_VERSION_MAJ, &SendData, 0, &ReData, 2);
     gRamSVer = ReData;
     gRamTVer = DAT_00093279;
     printf("File EC Version : V%1X%1XT%1X\n\r",(uint)gROM._1_1_,(uint)gROM._2_1_,(uint)gROM._4_1_);
@@ -340,9 +345,9 @@ int main (int argc, char *argv[])
       puts("ROM file was broken!!           \r\n");
       ExitPro(1,0);
     }
-    KBC_CMD_DATAS(0xb1,&SendData,0,&ReData,2);
+    KBC_CMD_DATAS(0xb1, &SendData, 0, &ReData, 2);
     local_1c = (uint)ReData * 0x100 + (uint)DAT_00093279;
-    KBC_CMD_DATAS(0xb0,&SendData,0,&ReData,2);
+    KBC_CMD_DATAS(0xb0, &SendData, 0, &ReData, 2);
     local_25 = ReData;
     if ((ReData == 'U') && (gBootLoader != '\0')) {
       gBootLoader = '\0';

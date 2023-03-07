@@ -40,7 +40,7 @@ int read_ec_device(uint8_t command, void *buf)
   ssize_t nbytes;
   off_t fl;
   int retu;
-  uint8_t cmd[4];
+  uint8_t cmd[5];
   int fd;
   
   fd = 0;
@@ -78,7 +78,7 @@ int read_ec_device(uint8_t command, void *buf)
   return retu;
 }
 // Like SMBus Write Word or write Byte with PEC.
-int write_ec_device(uint8_t command, void *sndBuf, int sndLen)
+int write_ec_device(uint8_t command, uint8_t *sndBuf, int sndLen)
 {
   ssize_t nbytes;
   int retu;
@@ -196,15 +196,15 @@ void display_usage(void)
 
 // PEC : CRC-8 : X8 + X2 + X + 1 : 1 0000 0111
 // Add 8 zeros at the end of divident
-// divide the bit-stream message with 0000 0111
+// divide the bit-stream message with 1 0000 0111
 // The reminder with be the CRC value.
-uint8_t CRC8_Calculator(uint8_t *data, int32_t length)
+uint8_t CRC8_Calculator(uint8_t *data, uint8_t length)
 {
-  uint8_t *data_p;
-  uint8_t j;
-  uint8_t i;
-  uint8_t remainder;
-  uint8_t crc;
+  uint8_t *data_p; //local_14
+  uint8_t j; // local_c
+  uint8_t i; // local_b
+  uint8_t remainder; // local_a
+  uint8_t crc; // local_9
   
   crc = *data;
   data_p = data;
@@ -212,7 +212,7 @@ uint8_t CRC8_Calculator(uint8_t *data, int32_t length)
     remainder = *data_p;
     for (j = 0; j < 8; j++) {
       if ((char)crc < '\0') {
-        crc = (crc >> 7 | crc << 1) ^ 7;
+        crc = (remainder >> 7 | crc << 1) ^ 7;
       }
       else {
         crc = remainder >> 7 | crc << 1;

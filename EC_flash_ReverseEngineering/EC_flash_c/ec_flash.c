@@ -14,6 +14,9 @@ void display_usage(void);
 //ssize_t write(int fildes, const void *buf, size_t nbyte);
 // ssize_t read(int fildes, void *buf, size_t nbyte);
 // off_t lseek(int fildes, off_t offset, int whence);
+uint8_t SendData[3];
+uint8_t ReData[1];
+uint8_t DataArray[33];
 void disable_batterypolling(void)
 {
   ssize_t nbytes;
@@ -226,8 +229,6 @@ uint8_t CRC8_Calculator(uint8_t *data, uint8_t length)
 
 int main (int argc, char *argv[])
 {
-  uint16_t SendData;
-  uint16_t ReData;
   int iVar1;
   char *pcVar2;
   undefined4 uVar3;
@@ -339,7 +340,7 @@ int main (int argc, char *argv[])
     KBC_CMD_DATAS(EC_VERSION_MAJ, &SendData, 0, &ReData, 2);
     gRamSVer = ReData;
     gRamTVer = DAT_00093279;
-    printf("File EC Version : V%1X%1XT%1X\n\r",(uint)gROM._1_1_,(uint)gROM._2_1_,(uint)gROM._4_1_);
+    printf("File EC Version : V%1X%1XT%1X\n\r",(uint)gROM[1],(uint)gROM[2],(uint)gROM[4]);
     printf("Current EC Version : V%1X%1XT%1X\n\r",(uint)gRamMVer,(uint)gRamSVer,(uint)gRamTVer);
     if ((((byte)gROM != gRamID) || (filesize != 0x20000)) && (gNid == '\0')) {
       puts("ROM file was broken!!           \r\n");
@@ -354,27 +355,27 @@ int main (int argc, char *argv[])
       puts("Boot block will not be updated. \r");
     }
     if (gBootLoader == '\0') {
-      SendData._0_1_ = 1;
+      SendData[0] = 1;
       local_20 = filesize - local_1c;
     }
     else {
-      SendData._0_1_ = 2;
+      SendData[0] = 2;
       local_20 = filesize;
     }
-    SendData._1_1_ = gEraseBlock;
+    SendData[1] = gEraseBlock;
     KBC_CMD_DATAS(0xb7,&SendData,2,&ReData,0);
     usleep(500000);
     local_26 = '\0';
     local_18 = filesize - local_20;
-    SendData._0_1_ = (undefined)local_18;
-    SendData._1_1_ = (byte)((uint)local_18 >> 8);
+    SendData[0] = (undefined)local_18;
+    SendData[1] = (byte)((uint)local_18 >> 8);
     KBC_CMD_DATAS(0xb8,&SendData,2,&ReData,0);
     while (local_20 != 0) {
       if (local_26 != '\0') {
         local_26 = '\0';
         usleep(200000);
-        SendData._0_1_ = 1;
-        SendData._1_1_ = gEraseBlock;
+        SendData[0] = 1;
+        SendData[1] = gEraseBlock;
         KBC_CMD_DATAS(0xb7,&SendData,2,&ReData,0);
         usleep(2000000);
         KBC_CMD_DATAS(0xb0,&SendData,0,&ReData,2);
@@ -384,8 +385,8 @@ int main (int argc, char *argv[])
           puts("Failed to jump boot block. Process stopped! \r");
           break;
         }
-        SendData._0_1_ = (undefined)local_1c;
-        SendData._1_1_ = (byte)((uint)local_1c >> 8);
+        SendData[0] = (undefined)local_1c;
+        SendData[1] = (byte)((uint)local_1c >> 8);
         KBC_CMD_DATAS(0xb8,&SendData,2,&ReData,0);
       }
       KBC_CMD_DATAS(0xb6,&SendData,0,&ReData,1);
@@ -417,16 +418,16 @@ int main (int argc, char *argv[])
         }
         for (local_14 = 0; (int)local_14 < 0x20; local_14 = local_14 + 1) {
           if (local_14 == 0 || (local_14 & 1) == 0) {
-            SendData._0_1_ = DataArray[local_14];
+            SendData[0] = DataArray[local_14];
           }
           else {
-            SendData._1_1_ = DataArray[local_14];
+            SendData[1] = DataArray[local_14];
             usleep(100);
             KBC_CMD_DATAS(0xb9,&SendData,2,&ReData,0);
           }
         }
-        SendData._0_1_ = CRC8_Calculator(DataArray, 0x20);
-        SendData._1_1_ = (byte)temp;
+        SendData[0] = CRC8_Calculator(DataArray, 0x20);
+        SendData[1] = (byte)temp;
         KBC_CMD_DATAS(0xb9,&SendData,2,&ReData,0);
       }
       usleep(5000);
@@ -434,22 +435,22 @@ int main (int argc, char *argv[])
     printf("Flash complete: [100%%]   \r\n");
     fclose(local_24);
     usleep(50000);
-    SendData._0_1_ = 4;
-    SendData._1_1_ = 0;
+    SendData[0] = 4;
+    SendData[1] = 0;
     KBC_CMD_DATAS(0xb7,&SendData,2,&ReData,0);
     usleep(50000);
     if (gOTA == '\0') {
       if (gFlashSD == '\0') {
-        SendData._0_1_ = 3;
+        SendData[0] = 3;
       }
       else {
-        SendData._0_1_ = 2;
+        SendData[0] = 2;
       }
     }
     else {
-      SendData._0_1_ = 1;
+      SendData[0] = 1;
     }
-    SendData._1_1_ = 0;
+    SendData[1] = 0;
     KBC_CMD_DATAS(0xba,&SendData,2,&ReData,0);
     puts("Flash Finish. Please wait for system restart ... \r\n");
   }

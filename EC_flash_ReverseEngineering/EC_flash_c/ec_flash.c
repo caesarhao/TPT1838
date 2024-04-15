@@ -85,7 +85,7 @@ int write_ec_device(uint8_t command, uint8_t *sndBuf, int sndLen)
 {
   ssize_t nbytes;
   int retu;
-  uint8_t local_18;
+  uint8_t cmd;
   uint8_t highByte;
   uint8_t lowByte;
   int fd;
@@ -96,14 +96,14 @@ int write_ec_device(uint8_t command, uint8_t *sndBuf, int sndLen)
     highByte = 0;
     lowByte = *sndBuf;
   }
-  local_18 = command;
+  cmd = command;
   fd = open("/sys/EcControl/ECflashwrite", (O_RDWR|O_NONBLOCK));
   if (fd < 0) {
     puts("peter ==== error: cannot open EC device file!");
     retu = 0;
   }
   else {
-    nbytes = write(fd, &local_18, 3);
+    nbytes = write(fd, sndBuf, 3);
     if (nbytes < 0) {
       puts("peter ===== error: write ec node.");
       retu = 0;
@@ -116,7 +116,7 @@ int write_ec_device(uint8_t command, uint8_t *sndBuf, int sndLen)
   return retu;
 }
 
-int KBC_CMD_DATAS(uint8_t command, void *sndBuf, int sndLen, void *rcvBuf, int rcvLen)
+int KBC_CMD_DATAS(uint8_t command, void *sndBuf, int sndLen, void *rcvBuf)
 {
   int nbytes;
   
@@ -253,8 +253,8 @@ int main (int argc, char *argv[])
   local_34 = 0;
   local_27 = '\0';
   for (arg_cnt = 1; arg_cnt < argc; arg_cnt = arg_cnt + 1) {
-    pcVar2 = (char *)strlwr(*(undefined4 *)(arg_cnt * 4 + argv));
-    strcpy(local_84,pcVar2);
+    pcVar2 = (char *)strlwr(argv[argc_cnt]);
+    strcpy(local_84, pcVar2);
     pcVar2 = (char *)strncmp("-d",local_84,2);
     if (pcVar2 == (char *)0x0) {
       local_34 = 2;
@@ -269,28 +269,28 @@ int main (int argc, char *argv[])
         }
       }
       else {
-        pcVar2 = (char *)strncmp("-e1",local_84,3);
-        if (pcVar2 == (char *)0x0) {
+        pcVar2 = strncmp("-e1",local_84,3);
+        if (pcVar2 == 0) {
           gEraseBlock = gEraseBlock | 1;
         }
         else {
-          pcVar2 = (char *)strncmp("-e2",local_84,3);
-          if (pcVar2 == (char *)0x0) {
+          pcVar2 = strncmp("-e2",local_84,3);
+          if (pcVar2 == 0) {
             gEraseBlock = gEraseBlock | 2;
           }
           else {
-            pcVar2 = (char *)strncmp("-nid",local_84,4);
-            if (pcVar2 == (char *)0x0) {
+            pcVar2 = strncmp("-nid",local_84,4);
+            if (pcVar2 == 0) {
               gNid = '\x01';
             }
             else {
-              pcVar2 = (char *)strncmp("-ota",local_84,4);
-              if (pcVar2 == (char *)0x0) {
+              pcVar2 = strncmp("-ota",local_84,4);
+              if (pcVar2 == 0) {
                 gOTA = '\x01';
               }
               else {
-                pcVar2 = (char *)strncmp("-sd",local_84,3);
-                if (pcVar2 == (char *)0x0) {
+                pcVar2 = strncmp("-sd",local_84,3);
+                if (pcVar2 == 0) {
                   gFlashSD = '\x01';
                 }
                 else if (local_84[0] != '-') {
@@ -332,12 +332,12 @@ int main (int argc, char *argv[])
   if ((local_34 != 2) && (local_34 == 1)) {
     local_14 = 0;
     // read register EC_MODEL, 0x30
-    KBC_CMD_DATAS(EC_MODEL, &SendData, 0, &ReData, 2);
+    KBC_CMD_DATAS(EC_MODEL, &SendData, 0, &ReData);
     gRamID = ReData;
     gRamMVer = DAT_00093279;
     usleep(100000);
     // read register EC_VERSION_MAJ, 0x31
-    KBC_CMD_DATAS(EC_VERSION_MAJ, &SendData, 0, &ReData, 2);
+    KBC_CMD_DATAS(EC_VERSION_MAJ, &SendData, 0, &ReData);
     gRamSVer = ReData;
     gRamTVer = DAT_00093279;
     printf("File EC Version : V%1X%1XT%1X\n\r",(uint)gROM[1],(uint)gROM[2],(uint)gROM[4]);
@@ -346,9 +346,9 @@ int main (int argc, char *argv[])
       puts("ROM file was broken!!           \r\n");
       ExitPro(1,0);
     }
-    KBC_CMD_DATAS(0xb1, &SendData, 0, &ReData, 2);
+    KBC_CMD_DATAS(0xb1, &SendData, 0, &ReData);
     local_1c = (uint)ReData * 0x100 + (uint)DAT_00093279;
-    KBC_CMD_DATAS(0xb0, &SendData, 0, &ReData, 2);
+    KBC_CMD_DATAS(0xb0, &SendData, 0, &ReData);
     local_25 = ReData;
     if ((ReData == 'U') && (gBootLoader != '\0')) {
       gBootLoader = '\0';
@@ -363,22 +363,22 @@ int main (int argc, char *argv[])
       local_20 = filesize;
     }
     SendData[1] = gEraseBlock;
-    KBC_CMD_DATAS(0xb7,&SendData,2,&ReData,0);
+    KBC_CMD_DATAS(0xb7,&SendData,2,&ReData);
     usleep(500000);
     local_26 = '\0';
     local_18 = filesize - local_20;
     SendData[0] = (undefined)local_18;
     SendData[1] = (byte)((uint)local_18 >> 8);
-    KBC_CMD_DATAS(0xb8,&SendData,2,&ReData,0);
+    KBC_CMD_DATAS(0xb8,&SendData,2,&ReData);
     while (local_20 != 0) {
       if (local_26 != '\0') {
         local_26 = '\0';
         usleep(200000);
         SendData[0] = 1;
         SendData[1] = gEraseBlock;
-        KBC_CMD_DATAS(0xb7,&SendData,2,&ReData,0);
+        KBC_CMD_DATAS(0xb7,&SendData,2,&ReData);
         usleep(2000000);
-        KBC_CMD_DATAS(0xb0,&SendData,0,&ReData,2);
+        KBC_CMD_DATAS(0xb0,&SendData,0,&ReData);
         local_25 = ReData;
         if (ReData != 0x55) {
           puts("\r");
@@ -387,9 +387,9 @@ int main (int argc, char *argv[])
         }
         SendData[0] = (undefined)local_1c;
         SendData[1] = (byte)((uint)local_1c >> 8);
-        KBC_CMD_DATAS(0xb8,&SendData,2,&ReData,0);
+        KBC_CMD_DATAS(0xb8,&SendData,2,&ReData);
       }
-      KBC_CMD_DATAS(0xb6,&SendData,0,&ReData,1);
+      KBC_CMD_DATAS(0xb6,&SendData,0,&ReData);
       if (((ReData == 0) || (ReData == 1)) || (ReData == 2)) {
         uVar3 = __aeabi_uidiv((filesize - local_20) * 100,filesize);
         printf("Flash complete: [%u%%]  \r",uVar3);

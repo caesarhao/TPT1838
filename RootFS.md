@@ -45,7 +45,7 @@ usermod -aG sudo thinkpad
 apt install -y xorg lxde lightdm
 
 # 9. Install Input Packages for N-Trig Stylus Pen
-apt install xserver-xorg-input-wacom xinput
+apt install xserver-xorg-input-wacom xinput xinput_calibrator
 type /etc/X11/xorg.conf.d/50-thinkpad-pen.conf
 Insert content :
 Section "InputClass"
@@ -56,6 +56,17 @@ Section "InputClass"
     Option "Button2" "3"   # Maps the second button on the barrel to act as a Right Click
 EndSection
 
+# 9.1 Calibrate the touchscreen
+xinput_calibrator
+nano /etc/X11/xorg.conf.d/99-calibration.conf
+Section "InputClass"
+    Identifier "calibration"
+    MatchProduct "N-Trig DuoSense"
+    Option "Calibration" "YOUR_MIN_X YOUR_MAX_X YOUR_MIN_Y YOUR_MAX_Y"
+EndSection
+
+# 9.2 Restart login manager
+sudo systemctl restart lightdm
 
 # 10. (Optional) Install a lightweight browser and network manager
 apt install -y network-manager wicd-cli leafpad
